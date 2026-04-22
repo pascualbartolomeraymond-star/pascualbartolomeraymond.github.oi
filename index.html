@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffd1dc,#ffe4ec);
+  overflow:hidden;
+}
+
+.lock-screen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#fff0f5,#ffe4ec);
+  flex-direction:column;
+  text-align:center;
+}
+
+.lock-icon{
+  font-size:40px;
+}
+
+.lock-screen input{
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  margin-top:10px;
+  width:200px;
+  text-align:center;
+}
+
+.lock-screen button{
+  margin-top:10px;
+  padding:10px 25px;
+  border:none;
+  background:#ff6b81;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.main{
+  display:none;
+  text-align:center;
+  padding:20px;
+}
+
+.section{
+  display:none;
+  animation:fade 1s ease;
+}
+
+.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);} 
+  to{opacity:1; transform:translateY(0);} 
+}
+
+.hero img{
+  width:100%;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  color:#ff4d6d;
+}
+
+.btn{
+  margin-top:20px;
+  padding:12px 25px;
+  background:#ff6b81;
+  color:white;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:15px;
+}
+
+.type{
+  font-family:monospace;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  text-align:left;
+  color:#333;
+  line-height:1.6;
+}
+
+.final{
+  font-size:18px;
+  color:#ff4d6d;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOCK SCREEN -->
+<div class="lock-screen">
+  <div class="lock-icon">🔒</div>
+  <h2>Enter Our Date 💖</h2>
+  <input type="password" id="pass" placeholder="MM/DD/YYYY">
+  <button onclick="unlock()">Unlock 💌</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main" id="main">
+
+  <!-- PAGE 1 -->
+  <div class="section active" id="page1">
+    <div class="hero">
+      <img src="IMG_20260404_005041_972.jpg">
+    </div>
+    <h1>Happy Birthday, My Love 💖</h1>
+    <button class="btn" onclick="nextPage(2)">Open Letter 💌</button>
+  </div>
+
+  <!-- PAGE 2 LETTER -->
+  <div class="section" id="page2">
+    <h1>My Letter For You 💖</h1>
+    <div class="type" id="text"></div>
+    <button class="btn" onclick="nextPage(3)">Our Memories 📸</button>
+  </div>
+
+  <!-- PAGE 3 GALLERY -->
+  <div class="section" id="page3">
+    <h1>Our Moments 📸</h1>
+    <div class="gallery">
+      <img src="59d1c5eaffa04c9d9533adedd876197b.png">
+      <img src="IMG_20260420_113437_442.jpg">
+      <img src="IMG_20260420_030830_209.jpg">
+      <img src="IMG_20260419_214952_852.jpg">
+    </div>
+    <button class="btn" onclick="nextPage(4)">Final Message 💖</button>
+  </div>
+
+  <!-- PAGE 4 FINAL -->
+  <div class="section" id="page4">
+    <h1>I Love You 💖</h1>
+    <p class="final">Thank you for being part of my life. You are my forever. 💖</p>
+  </div>
+
+  <!-- MUSIC -->
+  <audio id="music" loop>
+    <source src="https://youtu.be/5HZ9qeFjhYk?si=yeFxbpY7X4WB6DKe" type="audio/mpeg">
+  </audio>
+
+</div>
+
+<script>
+function unlock(){
+  let p = document.getElementById("pass").value;
+  if(p === "4/19/2026"){
+    document.querySelector(".lock-screen").style.display = "none";
+    document.getElementById("main").style.display = "block";
+    typeWriter();
+    document.getElementById("music").play();
+  } else {
+    alert("Wrong password 😢");
+  }
+}
+
+function nextPage(n){
+  document.querySelectorAll('.section').forEach(sec=>sec.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+}
+
+const message = `Happy, happy birthday to my one and only, my love, Jackie Manzano.\n\nMy wish for you is that all your dreams continue to come true, and that you keep reaching everything your heart desires. I’m always praying for your success and for all the goals you still want to achieve in life. You deserve every good thing coming your way.\n\nI hope you never change, especially with how you are with me—even if we’re far from each other. I’m truly happy that I met you, and I hope you feel the same way too. I’m so grateful for you, especially for always understanding me, even during my dramatic moments. Thank you for your patience and for staying by my side.\n\nPlease continue taking care of your family and never forget your faith—your worship and your responsibilities. I admire that about you so much.\n\nYou already know how much I love you. No matter what happens between us, I’ll always be here for you, supporting you and loving you from where I am.\n\nThank you for being part of my life.\nI love you more, babe. 💖`;
+
+let i=0;
+function typeWriter(){
+  if(i<message.length){
+    document.getElementById("text").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter,25);
+  }
+}
+</script>
+
+</body>
+</html>
